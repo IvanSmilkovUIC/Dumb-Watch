@@ -1,0 +1,86 @@
+#include <Wire.h>
+#include <Adafruit_SSD1306.h>
+#include <Adafruit_GFX.h>
+#define OLED_ADDR   0x3C
+
+Adafruit_SSD1306 display(-1);
+
+#if (SSD1306_LCDHEIGHT != 64)
+#error("Height incorrect, please fix Adafruit_SSD1306.h!");
+#endif
+
+int hour = 03, minute = 48;
+int num = 11;
+int buzzer = 3;
+char notify[12][20]={
+  "    Drink water!","Remember to shower!","    Please eat!"," Wash your hands!","     Wake up!","      Breath!","    Charge me!","      Study!","       Focus!","     Get up!","    Walk more!"," Check your email!"
+};
+
+void setup() {
+  display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR);
+  display.clearDisplay();
+  display.display();
+
+  pinMode(buzzer, OUTPUT);
+
+  display.drawPixel(0, 0, WHITE);
+  display.drawPixel(0, 15, WHITE);
+  display.drawPixel(127, 0, WHITE);
+  display.drawPixel(127, 15, WHITE);
+  display.drawPixel(0, 16, WHITE);
+  display.drawPixel(127, 16, WHITE);
+  display.drawPixel(0, 63, WHITE);
+  display.drawPixel(127, 63, WHITE);
+
+  display.display();
+}
+
+void loop() {
+  display.clearDisplay();
+  
+
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(12,3);
+  display.print(notify[num]);
+
+  digitalWrite(buzzer,HIGH);
+  delay(425);
+  digitalWrite(buzzer,LOW);
+  delay(75);digitalWrite(buzzer,HIGH);
+  delay(450);
+  digitalWrite(buzzer,LOW);
+  delay(50);
+
+  display.setTextSize(3);
+  display.setCursor(21,30);
+  if(hour<10){
+    display.print("0");
+  }
+  display.print(hour);
+  display.print(":");
+  if(minute<10){
+    display.print("0");
+  }
+  display.print(minute);
+  
+  display.display();
+  
+  delay(29000);
+  num++;
+  if(num == 12){
+    num = 0;
+  }
+  delay(30000);
+  
+  minute++;
+  if(minute == 60){
+    minute = 0;
+    hour++;
+  }
+  if(hour == 13){
+    hour = 1;
+  }
+  
+
+}

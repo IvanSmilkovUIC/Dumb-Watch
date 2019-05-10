@@ -1,0 +1,23 @@
+-Parts-
+
+1x arduino nano
+1x .96 inch oled display
+1x small brushless motor
+1x litheum ion battery
+1x lipo battery charger
+1x small pcb
+wires, solder, soldering iron, hot glue, elastic, hook and eye, and 3d printed parts
+
+-Instructions-
+
+connect oled GND, VCC, SCL, and SDA to arduino nano GND, 5V, A5, and A4 respectively
+connect motor + to arduino pin D3 and - to arduino GND
+connect battery + to lipo charger B+ and battery - to lipo charger B-
+connect lipo charger + and - to arduino V in and GND respectivelty
+-
+place interior components inbetween 3d printed watch top and bottom with oled display visible through opening, glue top and bottom shut
+attach hook and eye to opposing sides of elastic
+glue latch to center of bottom piece and run elastic through hole
+-
+put on your dumb watch by connecting the hook and eye
+
